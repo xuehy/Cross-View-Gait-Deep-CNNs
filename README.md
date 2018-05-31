@@ -1,7 +1,7 @@
 # Cross-View Gait Based Human Idendification with Deep CNNs
 A pytorch implementation of the Local-Bottom Network (LB) in the paper:
 ```
-Wu, Zifeng, et al. "A comprehensive study on cross-view gait based human identification with deep cnns." IEEE transactions on pattern analysis and machine intelligence 39.2 (2017): 209-226.```
+Wu, Zifeng, et al. "A comprehensive study on cross-view gait based human identification with deep cnns." IEEE transactions on pattern analysis and machine intelligence 39.2 (2017): 209-226. ```
 
 
 # Dependency
