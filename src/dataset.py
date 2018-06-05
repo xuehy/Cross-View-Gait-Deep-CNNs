@@ -134,6 +134,56 @@ class DatasetForEval(Dataset):
             PROBE_ANGLE
 
 
+class DatasetForTest(Dataset):
+    def __init__(self, data_dir):
+        super(DatasetForTest, self).__init__()
+        self.data_dir = data_dir
+        self.ids = np.arange(75, 125)
+        self.gallery_cond = ['nm-01', 'nm-02', 'nm-03', 'nm-04']
+        self.probe_cond = ['nm-05', 'nm-06']
+        self.angles = ['000', '018', '036', '054', '072',
+                       '090',
+                       '108', '126', '144', '162', '180']
+        self.n_ang = len(self.angles)
+
+        self.all_possible_paths_g = []
+        self.all_possible_paths_p = []
+        for idx in self.ids:
+            for cond in self.gallery_cond:
+                for angle in self.angles:
+                    index = '%03d' % idx
+                    path = index + '/' + cond + '/' + index + '-' + \
+                        cond + '-' + angle + '.png'
+                    if os.path.exists(self.data_dir + path):
+                        self.all_possible_paths_g.append(path)
+
+            for cond in self.probe_cond:
+                for angle in self.angles:
+                    index = '%03d' % idx
+                    path = index + '/' + cond + '/' + index + '-' + \
+                        cond + '-' + angle + '.png'
+                    if os.path.exists(self.data_dir + path):
+                        self.all_possible_paths_p.append(path)
+
+        self.all_possible_pairs = list(
+            itertools.product(self.all_possible_paths_p,
+                              self.all_possible_paths_g))
+        self.ptr = 0
+        print('Test set prepared')
+
+    def __len__(self):
+        return len(self.all_possible_pairs)
+
+    def __getitem__(self, idx):
+        pair = self.all_possible_pairs[idx]
+        img1 = loadImage(self.data_dir + pair[0])
+        img2 = loadImage(self.data_dir + pair[1])
+        label = 1 if pair[0][0:3] == pair[1][0:3] else 0
+        PROBE_ANGLE = pair[0][-7:-4]
+        return img1, img2, label, [int(pair[0][0:3]), int(pair[1][0:3])], \
+            PROBE_ANGLE
+
+
 class DatasetForTrainWithLoader():
     def __init__(self, data_dir):
         self.data_dir = data_dir
