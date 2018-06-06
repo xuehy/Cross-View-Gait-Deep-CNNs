@@ -1,6 +1,6 @@
 import torch as th
 import torch.nn as nn
-from model import LBNet
+from model import LBNet_1
 import visdom
 import time
 import torch.optim as optim
@@ -14,8 +14,8 @@ import numpy as np
 vis = visdom.Visdom(port=5274)
 train_loss = None
 val_acc = None
-lbnet = LBNet()
-device = th.device("cuda:3")
+lbnet = LBNet_1()
+device = th.device("cuda:1")
 
 for mod in list(lbnet.children())[0].children():
     if isinstance(mod, nn.Conv2d):

@@ -1,17 +1,15 @@
 import torch as th
-from model import LBNet
-import visdom
+from model import LBNet_1
 import time
 from dataset import DatasetForTest, loadImage
 import numpy as np
 import sys
 
 
-vis = visdom.Visdom(port=5274)
 val_acc = None
-lbnet = LBNet()
-device = th.device("cuda:2")
-checkpoint = th.load('../snapshot/snapshot_75000.pth')
+lbnet = LBNet_1()
+device = th.device("cuda:0")
+checkpoint = th.load('../snapshot/snapshot_80000.pth')
 lbnet = lbnet.to(device)
 lbnet.load_state_dict(checkpoint['model'])
 lbnet.eval()
