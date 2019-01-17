@@ -30,7 +30,7 @@ The model will be saved into the execution dir every 10000 iterations. You can c
 
 
 - Install [visdom](https://github.com/facebookresearch/visdom).
-- Start the visdom server with ```python3 -m visdom.server 5274``` or any port you like (change the port in train.py and test.py)
+- Start the visdom server with ```python3 -m visdom.server -port 5274``` or any port you like (change the port in train.py and test.py)
 - Open this URL in your browser: `http://localhost:5274` You will see the training loss curve and the validation accuracy curve.
 
 # Testing
